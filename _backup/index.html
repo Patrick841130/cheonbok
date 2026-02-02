@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>천복(天福) 웹3 사관학교 - 마스터 클래스</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nunito+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito Sans', 'Noto Sans KR', sans-serif;
+            background-color: #F8F8F8;
+            /* Light Grey Background */
+            color: #1e293b;
+            /* Slate 800 */
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            height: 350px;
+        }
+
+        .text-primary {
+            color: #E60013;
+        }
+
+        .bg-primary {
+            background-color: #E60013;
+        }
+
+        .border-primary {
+            border-color: #E60013;
+        }
+
+        .text-accent {
+            color: #FF6F21;
+        }
+
+        .tab-active {
+            background-color: #E60013;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(230, 0, 19, 0.3);
+        }
+
+        .tab-inactive {
+            background-color: #ffffff;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tab-inactive:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-[#E60013] selection:text-white overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-lg border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between h-20 items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="Cheonbok Logo" class="h-12 w-auto object-contain">
+                <span
+                    class="hidden sm:block text-xs font-bold text-slate-500 border-l border-slate-300 pl-3 uppercase tracking-wider">Web3
+                    Academy</span>
+            </div>
+            <div class="hidden md:flex gap-10 text-sm font-bold text-slate-600">
+                <button onclick="scrollToSection('concept')" class="hover:text-[#E60013] transition">철학</button>
+                <button onclick="scrollToSection('curriculum')" class="hover:text-[#E60013] transition">훈련과정</button>
+                <button onclick="scrollToSection('process')" class="hover:text-[#E60013] transition">입교절차</button>
+            </div>
+            <button onclick="scrollToSection('apply')"
+                class="bg-[#E60013] hover:bg-[#c40010] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-red-900/10">
+                입교 신청
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+        class="relative pt-40 pb-32 px-6 bg-black text-center overflow-hidden min-h-[85vh] flex flex-col justify-center items-center">
+        <!-- Abstract Background Shape -->
+        <!-- 3D Spline Background -->
+        <div class="absolute inset-0 z-0">
+            <iframe src='https://my.spline.design/40cryptocoinspackweb3library-p068FL9yIvVxXbmn0zHbgWyy/'
+                frameborder='0' width='100%' height='100%' style="pointer-events: none;"></iframe>
+        </div>
+        <!-- Overlay for readability -->
+        <div class="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto">
+            <div
+                class="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-8">
+                <span class="w-2 h-2 bg-[#FF6F21] rounded-full animate-pulse"></span>
+                <span class="text-xs font-bold text-white tracking-[0.2em] uppercase">제 3기 마스터 클래스 모집 중</span>
+            </div>
+            <h1 class="text-5xl sm:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                웹3 새로운 <span class="text-[#E60013]">금융 시대</span>.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">당신은
+                    준비되셨습니까?</span>
+            </h1>
+            <p class="text-xl text-slate-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                15시간의 무박 2일 고강도 실전 트레이딩.<br>
+                의존적인 매매 습관을 삭제하고, 스스로 생존하는 <span class="text-white font-bold">야전 투자자</span>로 재탄생하십시오.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <button onclick="scrollToSection('curriculum')"
+                    class="px-8 py-4 bg-white text-black hover:bg-gray-100 rounded-xl font-bold transition shadow-xl">
+                    커리큘럼 확인
+                </button>
+                <button onclick="scrollToSection('apply')"
+                    class="px-8 py-4 bg-[#E60013] hover:bg-[#c40010] text-white rounded-xl font-bold shadow-lg shadow-red-600/30 transition transform hover:-translate-y-1">
+                    지원하기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section id="concept" class="py-28 bg-[#F8F8F8] relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-sm font-bold text-[#E60013] mb-3 uppercase tracking-widest">Core Philosophy</h2>
+                    <h3 class="text-4xl font-black text-slate-900 mb-8 leading-tight">Leading이 아닌 <br><span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-600">Coaching</span>으로
+                        완성된다.</h3>
+                    <p class="text-slate-600 mb-10 leading-relaxed text-lg">
+                        리딩방의 맹점은 '의존'입니다. 천복 사관학교는 고기를 잡아주지 않습니다.<br>
+                        폭풍우 치는 바다에서도 배를 몰 수 있는 '항해술'을 가르칩니다.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div
+                            class="group flex gap-5 p-6 bg-white rounded-2xl border border-gray-100 hover:border-red-100 shadow-sm hover:shadow-lg transition duration-300">
+                            <div
+                                class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition">
+                                🚫</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-lg">기존 리딩방 (Parasitic)</h4>
+                                <p class="text-sm text-slate-500 mt-1">타인의 신호에만 의존하며 판단력을 상실하는 수동적 매매.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="group flex gap-5 p-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
+                            <div
+                                class="absolute right-0 top-0 w-32 h-32 bg-[#E60013] opacity-10 blur-[50px] rounded-full pointer-events-none">
+                            </div>
+                            <div
+                                class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition">
+                                🛡️</div>
+                            <div class="relative z-10">
+                                <h4 class="font-bold text-white text-lg">천복 사관학교 (Tactical)</h4>
+                                <p class="text-sm text-slate-400 mt-1">데이터 기반의 가설 수립과 교관의 피드백을 통한 독립적 매매.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 rounded-[2rem] shadow-2xl border border-gray-100 relative">
+                    <div
+                        class="absolute -top-10 -right-10 w-40 h-40 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob">
+                    </div>
+                    <div
+                        class="absolute -bottom-10 -left-10 w-40 h-40 bg-red-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
+                    </div>
+
+                    <h3 class="text-sm font-bold text-slate-400 mb-6 text-center uppercase tracking-widest">Graduate
+                        Competency Target</h3>
+                    <div class="chart-container relative z-10">
+                        <canvas id="competencyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Cards -->
+    <section class="py-24 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold text-[#E60013] mb-3 uppercase tracking-widest">Training Method</h2>
+                <h3 class="text-3xl font-black text-slate-900">3가지 핵심 원칙</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div
+                    class="p-10 rounded-2xl bg-[#F8F8F8] border border-gray-100 hover:bg-white hover:border-red-100 transition duration-300 card-hover group">
+                    <div class="text-5xl font-black text-slate-200 mb-6 group-hover:text-red-100 transition">01</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">No Signal Policy</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">종목 추천은 없습니다. 우리는 오직 '보는 눈'을 이식합니다. 근거 없는 매매는 즉시
+                        중단됩니다.</p>
+                </div>
+                <div
+                    class="p-10 rounded-2xl bg-[#F8F8F8] border border-gray-100 hover:bg-white hover:border-red-100 transition duration-300 card-hover group">
+                    <div class="text-5xl font-black text-slate-200 mb-6 group-hover:text-red-100 transition">02</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Logical Violence</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">교관은 당신의 가설을 처절하게 검증합니다. 논리적 허점이 파괴된 자리에서 진짜 실력이
+                        자라납니다.</p>
+                </div>
+                <div
+                    class="p-10 rounded-2xl bg-[#F8F8F8] border border-gray-100 hover:bg-white hover:border-red-100 transition duration-300 card-hover group">
+                    <div class="text-5xl font-black text-slate-200 mb-6 group-hover:text-red-100 transition">03</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Data-Driven</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">뇌피셜이 아닌 온체인 데이터로 말합니다. 세력의 자금 흐름을 추적하여 승률을 극대화합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="py-28 bg-[#F8F8F8] relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span
+                    class="px-4 py-1 rounded-full bg-red-100 text-[#E60013] text-xs font-bold uppercase tracking-wider mb-4 inline-block">15H
+                    Intensive Course</span>
+                <h2 class="text-4xl font-black text-slate-900 mb-4">Non-Stop 실전 철야 운용</h2>
+                <p class="text-slate-500 font-medium">금요일 19:00 - 토요일 10:00, 잠들지 않는 무박 2일의 기록</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                <button id="btn-1" onclick="switchTab(1)"
+                    class="flex-1 py-5 px-6 rounded-xl text-base font-bold transition-all tab-active shadow-lg">STAGE
+                    01. 전략수립</button>
+                <button id="btn-2" onclick="switchTab(2)"
+                    class="flex-1 py-5 px-6 rounded-xl text-base font-bold transition-all tab-inactive">STAGE 02.
+                    실전투입</button>
+                <button id="btn-3" onclick="switchTab(3)"
+                    class="flex-1 py-5 px-6 rounded-xl text-base font-bold transition-all tab-inactive">STAGE 03.
+                    복기교정</button>
+            </div>
+
+            <div id="tab-content"
+                class="bg-white p-10 md:p-14 rounded-3xl border border-gray-200 shadow-xl min-h-[400px] flex items-center relative overflow-hidden">
+                <!-- Content Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission Process -->
+    <section id="process" class="py-24 bg-white relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black text-slate-900 mb-4">선발 절차</h2>
+                <p class="text-slate-500">소수 정예 15명, 오직 준비된 자만이 함께할 수 있습니다.</p>
+            </div>
+
+            <div class="relative">
+                <!-- Connecting Line -->
+                <div class="absolute left-[27px] top-0 bottom-0 w-[2px] bg-slate-100 z-0"></div>
+
+                <div class="space-y-12">
+                    <div class="flex gap-8 relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-full bg-white border-4 border-slate-100 flex items-center justify-center text-slate-400 font-bold text-xl shadow-sm">
+                            1</div>
+                        <div class="pt-2">
+                            <h4 class="font-bold text-slate-900 text-lg mb-2">지원서 심사</h4>
+                            <p class="text-slate-500 text-sm">투자 경력과 학습 의지를 평가합니다.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-full bg-white border-4 border-slate-100 flex items-center justify-center text-slate-400 font-bold text-xl shadow-sm">
+                            2</div>
+                        <div class="pt-2">
+                            <h4 class="font-bold text-slate-900 text-lg mb-2">전화 인터뷰</h4>
+                            <p class="text-slate-500 text-sm">교관과의 1:1 심층 면접을 통해 멘탈과 기초 소양을 점검합니다.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#E60013] text-white flex items-center justify-center font-bold text-xl shadow-lg ring-4 ring-red-50">
+                            3</div>
+                        <div class="pt-2">
+                            <h4 class="font-bold text-[#E60013] text-lg mb-2">최종 선발</h4>
+                            <p class="text-slate-500 text-sm">합격자에게만 훈련소 위치와 작전 지시서가 전달됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <footer id="apply" class="py-24 bg-slate-950 text-white relative overflow-hidden">
+        <!-- Footer Ornament -->
+        <div
+            class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl sm:text-4xl font-black mb-10 leading-tight">
+                "당신은 리더입니까,<br> 아니면 추종자입니까?"
+            </h2>
+            <div
+                class="bg-gradient-to-br from-gray-800 to-black p-8 rounded-3xl mb-12 border border-gray-800 shadow-2xl">
+                <h3 class="text-xl font-bold text-white mb-2">제 3기 마스터 클래스 입교 신청</h3>
+                <p class="text-sm text-gray-400 mb-8">성공적인 투자는 올바른 교육에서 시작됩니다.</p>
+                <button onclick="window.open('https://forms.gle/UWHpkG7nHuPUzsZp6', '_blank')"
+                    class="w-full bg-[#E60013] hover:bg-[#c40010] text-white py-5 rounded-xl font-black text-lg transition-all shadow-lg transform hover:scale-[1.01]">
+                    입교 신청서 작성하기
+                </button>
+            </div>
+
+            <div class="text-gray-600 text-xs flex flex-col items-center gap-4">
+                <div class="flex gap-6">
+                    <span class="hover:text-gray-400 cursor-pointer">이용약관</span>
+                    <span class="hover:text-gray-400 cursor-pointer">개인정보처리방침</span>
+                    <span class="hover:text-gray-400 cursor-pointer">오시는 길</span>
+                </div>
+                <p>&copy; 2026 CHEONBOK WEB3 ACADEMY. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        const curriculumData = {
+            1: {
+                title: "STAGE 01. 전략 수립",
+                time: "Fri 19:00 ~ 23:00",
+                desc: "불금이 아닌 '전쟁'을 준비합니다. 시장의 노이즈를 제거하고 철야 작전 지도를 그립니다.",
+                items: [
+                    { head: "온체인 데이터 마스터", text: "고래의 지갑 주소를 추적하고 유동성의 흐름을 파악하는 기술을 습득합니다." },
+                    { head: "투자 가설 엔지니어링", text: "단순한 추측이 아닌, 논리적 근거에 기반한 진입/탈출 시나리오를 설계합니다." },
+                    { head: "작전 컨펌", text: "교관의 압박 질문을 견뎌내며 본인의 전략을 증명하는 시간을 갖습니다." }
+                ]
+            },
+            2: {
+                title: "STAGE 02. 실전 투입",
+                time: "Fri 23:00 ~ Sat 06:00",
+                desc: "가장 변동성이 큰 심야 시간대, 수립된 전략을 실제 시장에서 증명하고 대응합니다.",
+                items: [
+                    { head: "미국장/새벽장 대응", text: "글로벌 유동성이 폭발하는 심야 시간대에 컨펌받은 전략을 전술적으로 수행합니다." },
+                    { head: "리스크 SOP 가동", text: "졸음과 감정이 개입될 여지가 없도록 미리 정해진 대응 절차를 기계적으로 수행합니다." },
+                    { head: "멘탈 코어 트레이닝", text: "극한의 피로 속에서도 냉정함을 유지하는 야전 투자자의 멘탈을 이식합니다." }
+                ]
+            },
+            3: {
+                title: "STAGE 03. 복기 교정",
+                time: "Sat 06:00 ~ 10:00",
+                desc: "아침 해가 뜰 때까지 결과를 해부하여 승리의 유전자를 남깁니다.",
+                items: [
+                    { head: "트레이딩 로그 분석", text: "밤새 이루어진 모든 매매 결정을 온체인 기록과 비교하여 논리적 오류를 찾아냅니다." },
+                    { head: "개인 매매 시스템 구축", text: "수정된 로직을 바탕으로 퇴소 후에도 스스로 가동할 수 있는 시스템을 완성합니다." },
+                    { head: "수료식 및 귀가", text: "15시간의 지옥 훈련을 버텨낸 생존자들에게 수료증을 수여하고 해산합니다." }
+                ]
+            }
+        };
+
+        function switchTab(id) {
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`btn-${i}`);
+                if (i === id) {
+                    btn.className = "flex-1 py-5 px-6 rounded-xl text-base font-bold transition-all tab-active shadow-lg";
+                } else {
+                    btn.className = "flex-1 py-5 px-6 rounded-xl text-base font-bold transition-all tab-inactive";
+                }
+            }
+
+            const container = document.getElementById('tab-content');
+            const data = curriculumData[id];
+
+            container.classList.remove('fade-in');
+            void container.offsetWidth;
+
+            let html = `
+                <div class="w-full fade-in">
+                    <div class="flex items-center gap-4 mb-3">
+                        <h3 class="text-3xl font-black text-slate-900">${data.title}</h3>
+                        <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded text-sm font-bold">${data.time}</span>
+                    </div>
+                    <p class="text-[#E60013] mb-10 font-bold text-lg">${data.desc}</p>
+                    <div class="grid md:grid-cols-3 gap-10">
+            `;
+
+            data.items.forEach((item, idx) => {
+                html += `
+                    <div class="space-y-3 group">
+                        <div class="w-8 h-1 bg-gray-200 group-hover:bg-[#E60013] transition-colors rounded-full mb-2"></div>
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-[#E60013] transition-colors">${item.head}</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed">${item.text}</p>
+                    </div>
+                `;
+            });
+
+            html += `</div></div>`;
+            container.innerHTML = html;
+            container.classList.add('fade-in');
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const offset = 100;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = el.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        window.onload = () => {
+            switchTab(1);
+
+            const ctx = document.getElementById('competencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['온체인분석', '리스크관리', '멘탈통제', '매매시스템', '시장대응'],
+                    datasets: [{
+                        label: '일반 개미',
+                        data: [20, 30, 40, 15, 25],
+                        backgroundColor: 'rgba(148, 163, 184, 0.2)', // Slate 400
+                        borderColor: '#94a3b8',
+                        borderWidth: 1,
+                        pointRadius: 0
+                    }, {
+                        label: '사관학교 수료생',
+                        data: [90, 95, 85, 95, 90],
+                        backgroundColor: 'rgba(230, 0, 19, 0.2)', // Red
+                        borderColor: '#E60013',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#E60013'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            grid: { color: '#e2e8f0' }, // Slate 200
+                            angleLines: { color: '#e2e8f0' },
+                            pointLabels: { color: '#64748b', font: { size: 12, weight: 'bold', family: "'Nunito Sans', sans-serif" } },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#475569', font: { size: 12, family: "'Nunito Sans', sans-serif" } } }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
