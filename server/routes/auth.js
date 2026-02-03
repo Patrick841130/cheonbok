@@ -1,39 +1,45 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import db from '../db.js';
+import pool from '../db.js';
 
 const router = express.Router();
 
 // Login endpoint
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
         return res.status(400).json({ error: '아이디와 비밀번호를 입력해주세요.' });
     }
 
-    const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        const user = result.rows[0];
 
-    if (!user) {
-        return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
+        if (!user) {
+            return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
+        }
+
+        const validPassword = bcrypt.compareSync(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
+        }
+
+        const token = jwt.sign(
+            { id: user.id, username: user.username },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        res.json({
+            token,
+            user: { id: user.id, username: user.username }
+        });
+    } catch (err) {
+        console.error('Login error:', err);
+        res.status(500).json({ error: '서버 오류가 발생했습니다.' });
     }
-
-    const validPassword = bcrypt.compareSync(password, user.password);
-    if (!validPassword) {
-        return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
-    }
-
-    const token = jwt.sign(
-        { id: user.id, username: user.username },
-        process.env.JWT_SECRET,
-        { expiresIn: '24h' }
-    );
-
-    res.json({
-        token,
-        user: { id: user.id, username: user.username }
-    });
 });
 
 // Verify token endpoint

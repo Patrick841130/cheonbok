@@ -1,58 +1,73 @@
-import Database from 'better-sqlite3';
+import pg from 'pg';
 import bcrypt from 'bcryptjs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const db = new Database(path.join(__dirname, 'cheonbok.db'));
+const { Pool } = pg;
 
-// Enable WAL mode for better performance
-db.pragma('journal_mode = WAL');
+// PostgreSQL connection pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
 // Initialize tables
-db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
+async function initializeDatabase() {
+  const client = await pool.connect();
+  try {
+    await client.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
 
-  CREATE TABLE IF NOT EXISTS news (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    category TEXT,
-    date TEXT,
-    image TEXT,
-    content TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
+            CREATE TABLE IF NOT EXISTS news (
+                id SERIAL PRIMARY KEY,
+                title TEXT NOT NULL,
+                category TEXT,
+                date TEXT,
+                image TEXT,
+                content TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
 
-  CREATE TABLE IF NOT EXISTS schedule (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    track TEXT NOT NULL,
-    month TEXT NOT NULL,
-    image TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
+            CREATE TABLE IF NOT EXISTS schedule (
+                id SERIAL PRIMARY KEY,
+                track TEXT NOT NULL,
+                month TEXT NOT NULL,
+                image TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
 
-  CREATE TABLE IF NOT EXISTS instructors (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    title TEXT,
-    image TEXT,
-    philosophy TEXT,
-    bio TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-`);
+            CREATE TABLE IF NOT EXISTS instructors (
+                id SERIAL PRIMARY KEY,
+                name TEXT NOT NULL,
+                title TEXT,
+                image TEXT,
+                philosophy TEXT,
+                bio TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        `);
 
-// Seed default admin user if not exists
-const adminUser = db.prepare('SELECT id FROM users WHERE username = ?').get('admin');
-if (!adminUser) {
-  const hashedPassword = bcrypt.hashSync('cheonbok2025', 10);
-  db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run('admin', hashedPassword);
-  console.log('Default admin user created.');
+    // Seed default admin user if not exists
+    const result = await client.query('SELECT id FROM users WHERE username = $1', ['admin']);
+    if (result.rows.length === 0) {
+      const hashedPassword = bcrypt.hashSync('cheonbok2025', 10);
+      await client.query('INSERT INTO users (username, password) VALUES ($1, $2)', ['admin', hashedPassword]);
+      console.log('Default admin user created.');
+    }
+
+    console.log('Database initialized successfully.');
+  } catch (err) {
+    console.error('Error initializing database:', err);
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
-export default db;
+// Initialize on startup
+initializeDatabase().catch(console.error);
+
+export default pool;
