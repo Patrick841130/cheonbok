@@ -99,14 +99,33 @@ export const useDataStore = create((set, get) => ({
 
     saveInstructors: async () => {
         const { instructors } = get();
+        const savedInstructors = [];
+
         try {
             for (const inst of instructors) {
-                await instructorsApi.update(inst.id, inst);
+                // Try to update first
+                try {
+                    await instructorsApi.update(inst.id, inst);
+                    savedInstructors.push(inst);
+                } catch (updateError) {
+                    // If update fails (doesn't exist), create new
+                    try {
+                        const created = await instructorsApi.create(inst);
+                        savedInstructors.push({ ...inst, id: created.id });
+                    } catch (createError) {
+                        // If both fail, keep original
+                        savedInstructors.push(inst);
+                    }
+                }
+            }
+            // Update state with new IDs from server
+            if (savedInstructors.length > 0) {
+                set({ instructors: savedInstructors });
             }
         } catch (e) {
             // Fallback to localStorage
         }
-        storage.saveInstructors(instructors);
+        storage.saveInstructors(get().instructors);
     },
 
     // Schedule actions
