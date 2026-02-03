@@ -21,23 +21,25 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS news (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
-    summary TEXT,
-    link TEXT,
+    category TEXT,
+    date TEXT,
+    image TEXT,
+    content TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
   CREATE TABLE IF NOT EXISTS schedule (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    date TEXT NOT NULL,
-    title TEXT NOT NULL,
-    description TEXT,
+    track TEXT NOT NULL,
+    month TEXT NOT NULL,
+    image TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
   CREATE TABLE IF NOT EXISTS instructors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    role TEXT,
+    title TEXT,
     image TEXT,
     philosophy TEXT,
     bio TEXT,
@@ -48,9 +50,9 @@ db.exec(`
 // Seed default admin user if not exists
 const adminUser = db.prepare('SELECT id FROM users WHERE username = ?').get('admin');
 if (!adminUser) {
-    const hashedPassword = bcrypt.hashSync('cheonbok2025', 10);
-    db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run('admin', hashedPassword);
-    console.log('Default admin user created.');
+  const hashedPassword = bcrypt.hashSync('cheonbok2025', 10);
+  db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run('admin', hashedPassword);
+  console.log('Default admin user created.');
 }
 
 export default db;

@@ -12,15 +12,15 @@ router.get('/news', (req, res) => {
 });
 
 router.post('/news', (req, res) => {
-    const { title, summary, link } = req.body;
-    const result = db.prepare('INSERT INTO news (title, summary, link) VALUES (?, ?, ?)').run(title, summary, link);
-    res.json({ id: result.lastInsertRowid, title, summary, link });
+    const { title, category, date, image, content } = req.body;
+    const result = db.prepare('INSERT INTO news (title, category, date, image, content) VALUES (?, ?, ?, ?, ?)').run(title, category, date, image, content);
+    res.json({ id: result.lastInsertRowid, title, category, date, image, content });
 });
 
 router.put('/news/:id', (req, res) => {
-    const { title, summary, link } = req.body;
-    db.prepare('UPDATE news SET title = ?, summary = ?, link = ? WHERE id = ?').run(title, summary, link, req.params.id);
-    res.json({ id: parseInt(req.params.id), title, summary, link });
+    const { title, category, date, image, content } = req.body;
+    db.prepare('UPDATE news SET title = ?, category = ?, date = ?, image = ?, content = ? WHERE id = ?').run(title, category, date, image, content, req.params.id);
+    res.json({ id: parseInt(req.params.id), title, category, date, image, content });
 });
 
 router.delete('/news/:id', (req, res) => {
@@ -32,20 +32,26 @@ router.delete('/news/:id', (req, res) => {
 // SCHEDULE CRUD
 // =====================
 router.get('/schedule', (req, res) => {
-    const rows = db.prepare('SELECT * FROM schedule ORDER BY date ASC').all();
-    res.json(rows);
+    const rows = db.prepare('SELECT * FROM schedule ORDER BY id ASC').all();
+    // Group by track for frontend compatibility
+    const grouped = {
+        basic: rows.filter(r => r.track === 'basic'),
+        intermediate: rows.filter(r => r.track === 'intermediate'),
+        master: rows.filter(r => r.track === 'master')
+    };
+    res.json(grouped);
 });
 
 router.post('/schedule', (req, res) => {
-    const { date, title, description } = req.body;
-    const result = db.prepare('INSERT INTO schedule (date, title, description) VALUES (?, ?, ?)').run(date, title, description);
-    res.json({ id: result.lastInsertRowid, date, title, description });
+    const { track, month, image } = req.body;
+    const result = db.prepare('INSERT INTO schedule (track, month, image) VALUES (?, ?, ?)').run(track, month, image);
+    res.json({ id: result.lastInsertRowid, track, month, image });
 });
 
 router.put('/schedule/:id', (req, res) => {
-    const { date, title, description } = req.body;
-    db.prepare('UPDATE schedule SET date = ?, title = ?, description = ? WHERE id = ?').run(date, title, description, req.params.id);
-    res.json({ id: parseInt(req.params.id), date, title, description });
+    const { track, month, image } = req.body;
+    db.prepare('UPDATE schedule SET track = ?, month = ?, image = ? WHERE id = ?').run(track, month, image, req.params.id);
+    res.json({ id: parseInt(req.params.id), track, month, image });
 });
 
 router.delete('/schedule/:id', (req, res) => {
@@ -62,15 +68,15 @@ router.get('/instructors', (req, res) => {
 });
 
 router.post('/instructors', (req, res) => {
-    const { name, role, image, philosophy, bio } = req.body;
-    const result = db.prepare('INSERT INTO instructors (name, role, image, philosophy, bio) VALUES (?, ?, ?, ?, ?)').run(name, role, image, philosophy, bio);
-    res.json({ id: result.lastInsertRowid, name, role, image, philosophy, bio });
+    const { name, title, image, philosophy, bio } = req.body;
+    const result = db.prepare('INSERT INTO instructors (name, title, image, philosophy, bio) VALUES (?, ?, ?, ?, ?)').run(name, title, image, philosophy, bio);
+    res.json({ id: result.lastInsertRowid, name, title, image, philosophy, bio });
 });
 
 router.put('/instructors/:id', (req, res) => {
-    const { name, role, image, philosophy, bio } = req.body;
-    db.prepare('UPDATE instructors SET name = ?, role = ?, image = ?, philosophy = ?, bio = ? WHERE id = ?').run(name, role, image, philosophy, bio, req.params.id);
-    res.json({ id: parseInt(req.params.id), name, role, image, philosophy, bio });
+    const { name, title, image, philosophy, bio } = req.body;
+    db.prepare('UPDATE instructors SET name = ?, title = ?, image = ?, philosophy = ?, bio = ? WHERE id = ?').run(name, title, image, philosophy, bio, req.params.id);
+    res.json({ id: parseInt(req.params.id), name, title, image, philosophy, bio });
 });
 
 router.delete('/instructors/:id', (req, res) => {
