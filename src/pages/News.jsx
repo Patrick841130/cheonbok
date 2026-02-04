@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { storage } from '../lib/storage';
-import { ChevronRight, Calendar, Tag } from 'lucide-react';
+import { useDataStore } from '../stores/dataStore';
+import { ChevronRight, Calendar } from 'lucide-react';
 
 export function NewsList() {
-    const [news, setNews] = useState([]);
+    const { news, fetchNews } = useDataStore();
 
     useEffect(() => {
-        setNews(storage.getNews());
-    }, []);
+        fetchNews();
+    }, [fetchNews]);
 
     return (
         <div className="max-w-7xl mx-auto px-6 py-20">
@@ -50,13 +50,13 @@ export function NewsList() {
 
 export function NewsDetail() {
     const { id } = useParams();
-    const [article, setArticle] = useState(null);
+    const { news, fetchNews } = useDataStore();
 
     useEffect(() => {
-        const news = storage.getNews();
-        const found = news.find(n => n.id === parseInt(id) || n.id === id);
-        setArticle(found);
-    }, [id]);
+        fetchNews();
+    }, [fetchNews]);
+
+    const article = news.find(n => n.id === parseInt(id) || n.id === id);
 
     if (!article) return <div className="text-center py-40">Loading...</div>;
 

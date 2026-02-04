@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { storage } from '../lib/storage';
+import { useEffect } from 'react';
+import { useDataStore } from '../stores/dataStore';
 
 export default function Instructors() {
-    const [instructors, setInstructors] = useState([]);
+    const { instructors, fetchInstructors } = useDataStore();
 
     useEffect(() => {
-        setInstructors(storage.getInstructors());
-    }, []);
+        fetchInstructors();
+    }, [fetchInstructors]);
 
     return (
         <div className="bg-slate-900 py-24 min-h-screen text-white relative overflow-hidden">
