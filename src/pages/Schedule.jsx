@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { storage } from '../lib/storage';
+import { useDataStore } from '../stores/dataStore';
 import { cn } from '../lib/utils'; // Assumes utils.js exists
 
 export default function Schedule() {
     // Initial state: load full object, but default view is 'basic' track
-    const [fullSchedule, setFullSchedule] = useState(null);
+    const { schedule: fullSchedule, fetchSchedule } = useDataStore();
     const [activeTrack, setActiveTrack] = useState('basic');
     const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
-        setFullSchedule(storage.getSchedule());
-    }, []);
+        fetchSchedule();
+    }, [fetchSchedule]);
 
     if (!fullSchedule) return <div>Loading...</div>;
 

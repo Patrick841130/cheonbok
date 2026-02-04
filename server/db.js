@@ -36,6 +36,7 @@ async function initializeDatabase() {
                 track TEXT NOT NULL,
                 month TEXT NOT NULL,
                 image TEXT,
+                weeks JSONB DEFAULT '[]',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
 

@@ -79,10 +79,10 @@ router.get('/schedule', async (req, res) => {
 
 router.post('/schedule', async (req, res) => {
     try {
-        const { track, month, image } = req.body;
+        const { track, month, image, weeks } = req.body;
         const result = await pool.query(
-            'INSERT INTO schedule (track, month, image) VALUES ($1, $2, $3) RETURNING *',
-            [track, month, image]
+            'INSERT INTO schedule (track, month, image, weeks) VALUES ($1, $2, $3, $4) RETURNING *',
+            [track, month, image, JSON.stringify(weeks || [])]
         );
         res.json(result.rows[0]);
     } catch (err) {
@@ -93,10 +93,10 @@ router.post('/schedule', async (req, res) => {
 
 router.put('/schedule/:id', async (req, res) => {
     try {
-        const { track, month, image } = req.body;
+        const { track, month, image, weeks } = req.body;
         const result = await pool.query(
-            'UPDATE schedule SET track = $1, month = $2, image = $3 WHERE id = $4 RETURNING *',
-            [track, month, image, req.params.id]
+            'UPDATE schedule SET track = $1, month = $2, image = $3, weeks = $4 WHERE id = $5 RETURNING *',
+            [track, month, image, JSON.stringify(weeks || []), req.params.id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Schedule not found' });

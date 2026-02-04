@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { newsApi, instructorsApi } from '../lib/api';
+import { newsApi, instructorsApi, scheduleApi } from '../lib/api';
 import { storage } from '../lib/storage';
 
 export const useDataStore = create((set, get) => ({
@@ -129,9 +129,21 @@ export const useDataStore = create((set, get) => ({
     },
 
     // Schedule actions
-    fetchSchedule: () => {
-        const data = storage.getSchedule();
-        set({ schedule: data });
+    fetchSchedule: async () => {
+        try {
+            const data = await scheduleApi.getAll();
+            // If API returns data with items, use it
+            const hasData = data && (data.basic?.length > 0 || data.intermediate?.length > 0 || data.master?.length > 0);
+            if (hasData) {
+                set({ schedule: data });
+            } else {
+                const localData = storage.getSchedule();
+                set({ schedule: localData });
+            }
+        } catch (e) {
+            const localData = storage.getSchedule();
+            set({ schedule: localData });
+        }
     },
 
     updateSchedule: (track, index, field, value) => {
@@ -144,7 +156,26 @@ export const useDataStore = create((set, get) => ({
         });
     },
 
-    saveSchedule: () => {
-        storage.saveSchedule(get().schedule);
+    saveSchedule: async () => {
+        const { schedule } = get();
+        try {
+            // Save each track's items to API
+            for (const track of ['basic', 'intermediate', 'master']) {
+                for (const item of schedule[track] || []) {
+                    try {
+                        await scheduleApi.update(item.id, { ...item, track });
+                    } catch {
+                        try {
+                            await scheduleApi.create({ ...item, track });
+                        } catch {
+                            // Continue if fails
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            // Fallback to localStorage
+        }
+        storage.saveSchedule(schedule);
     },
 }));
