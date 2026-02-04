@@ -37,6 +37,9 @@ router.put('/news/:id', async (req, res) => {
             'UPDATE news SET title = $1, category = $2, date = $3, image = $4, content = $5 WHERE id = $6 RETURNING *',
             [title, category, date, image, content, req.params.id]
         );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'News not found' });
+        }
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Error updating news:', err);
@@ -95,6 +98,9 @@ router.put('/schedule/:id', async (req, res) => {
             'UPDATE schedule SET track = $1, month = $2, image = $3 WHERE id = $4 RETURNING *',
             [track, month, image, req.params.id]
         );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Schedule not found' });
+        }
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Error updating schedule:', err);
@@ -146,6 +152,9 @@ router.put('/instructors/:id', async (req, res) => {
             'UPDATE instructors SET name = $1, title = $2, image = $3, philosophy = $4, bio = $5 WHERE id = $6 RETURNING *',
             [name, title, image, philosophy, bio, req.params.id]
         );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Instructor not found' });
+        }
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Error updating instructor:', err);
