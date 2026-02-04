@@ -50,13 +50,21 @@ export const useDataStore = create((set, get) => ({
     },
 
     updateNews: async (id, item) => {
+        let savedItem = { ...item, id };
         try {
-            await newsApi.update(id, item);
+            const result = await newsApi.update(id, item);
+            savedItem = result;
         } catch (e) {
-            // Fallback continues
+            // If update fails (doesn't exist), try to create
+            try {
+                const created = await newsApi.create(item);
+                savedItem = { ...item, id: created.id };
+            } catch (createErr) {
+                // Both failed, keep original
+            }
         }
         set((state) => ({
-            news: state.news.map((n) => (n.id === id ? { ...item, id } : n)),
+            news: state.news.map((n) => (n.id === id ? savedItem : n)),
         }));
         storage.saveNews(get().news);
     },
