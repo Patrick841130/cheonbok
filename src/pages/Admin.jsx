@@ -245,9 +245,9 @@ export default function Admin() {
                             <div className="flex justify-start mb-8">
                                 <div className="bg-white p-1 rounded-lg shadow-sm border border-slate-200 inline-flex">
                                     {[
-                                        { id: 'basic', label: '기초반' },
-                                        { id: 'intermediate', label: '중급반' },
-                                        { id: 'master', label: '마스터반' }
+                                        { id: 'basic', label: '기초훈련반' },
+                                        { id: 'intermediate', label: '생도육성반' },
+                                        { id: 'master', label: '장교육성반' }
                                     ].map(track => (
                                         <button
                                             key={track.id}

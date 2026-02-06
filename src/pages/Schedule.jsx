@@ -18,9 +18,9 @@ export default function Schedule() {
     const currentSchedule = currentTrackSchedule[activeTab];
 
     const tracks = [
-        { id: 'basic', label: '기초반 (Basic)' },
-        { id: 'intermediate', label: '중급반 (Intermediate)' },
-        { id: 'master', label: '마스터반 (Master)' }
+        { id: 'basic', label: '기초훈련반 (Basic)' },
+        { id: 'intermediate', label: '생도육성반 (Intermediate)' },
+        { id: 'master', label: '장교육성반 (Master)' }
     ];
 
     return (
