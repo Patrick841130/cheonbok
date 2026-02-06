@@ -20,7 +20,7 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         className="block w-full bg-primary hover:bg-red-700 text-white py-5 rounded-xl font-black text-lg transition-all shadow-lg transform hover:scale-[1.01]"
                     >
-                        입교 신청서 작성하기
+                        얼리버드 신청서 작성하기
                     </a>
                 </div>
 
