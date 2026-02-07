@@ -54,9 +54,16 @@ async function initializeDatabase() {
     // Seed default admin user if not exists
     const result = await client.query('SELECT id FROM users WHERE username = $1', ['admin']);
     if (result.rows.length === 0) {
-      const hashedPassword = bcrypt.hashSync('cheonbok2025', 10);
-      await client.query('INSERT INTO users (username, password) VALUES ($1, $2)', ['admin', hashedPassword]);
-      console.log('Default admin user created.');
+      // Use environment variable for default password, fallback only for initial setup
+      const defaultPassword = process.env.DEFAULT_ADMIN_PASSWORD;
+      if (!defaultPassword) {
+        console.warn('⚠️  WARNING: DEFAULT_ADMIN_PASSWORD not set. Skipping admin user creation.');
+        console.warn('   Set DEFAULT_ADMIN_PASSWORD environment variable to create admin user.');
+      } else {
+        const hashedPassword = bcrypt.hashSync(defaultPassword, 12);
+        await client.query('INSERT INTO users (username, password) VALUES ($1, $2)', ['admin', hashedPassword]);
+        console.log('✅ Default admin user created.');
+      }
     }
 
     console.log('Database initialized successfully.');
