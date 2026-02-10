@@ -113,7 +113,7 @@ export default function Home() {
                         <span className="w-2 h-2 bg-[#FF6F21] rounded-full animate-pulse"></span>
                         <span className="text-xs font-bold text-white tracking-[0.2em] uppercase">제 3기 마스터 클래스 모집 중</span>
                     </div>
-                    <h1 className="text-5xl sm:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                    <h1 className="text-4xl sm:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
                         웹3 새로운 <span className="text-primary">금융 시대</span>.<br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
                             당신은 준비되셨습니까?
@@ -141,12 +141,12 @@ export default function Home() {
             </section>
 
             {/* Concept Section */}
-            <section id="concept" className="py-28 bg-[#F8F8F8] relative">
+            <section id="concept" className="py-28 bg-[#F8F8F8] relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div>
                             <h2 className="text-sm font-bold text-primary mb-3 uppercase tracking-widest">Core Philosophy</h2>
-                            <h3 className="text-4xl font-black text-slate-900 mb-8 leading-tight">
+                            <h3 className="text-3xl sm:text-4xl font-black text-slate-900 mb-8 leading-tight">
                                 Leading이 아닌 <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-600">Coaching</span>으로 완성된다.
                             </h3>
@@ -181,8 +181,8 @@ export default function Home() {
                         </div>
 
                         <div className="bg-white p-10 rounded-[2rem] shadow-2xl border border-gray-100 relative">
-                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-red-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                            <div className="hidden md:block absolute -top-10 -right-10 w-40 h-40 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                            <div className="hidden md:block absolute -bottom-10 -left-10 w-40 h-40 bg-red-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
 
                             <h3 className="text-sm font-bold text-slate-400 mb-6 text-center uppercase tracking-widest">Graduate Competency Target</h3>
                             <div className="relative z-10 w-full h-[350px]">

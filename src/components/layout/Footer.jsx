@@ -3,11 +3,11 @@ export default function Footer() {
         <footer className="py-24 bg-slate-950 text-white relative overflow-hidden mt-auto">
             {/* Footer Ornament */}
             <div
-                className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none">
+                className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none">
             </div>
 
             <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-                <h2 className="text-3xl sm:text-4xl font-black mb-10 leading-tight">
+                <h2 className="text-2xl sm:text-4xl font-black mb-10 leading-tight">
                     "당신은 리더입니까,<br /> 아니면 추종자입니까?"
                 </h2>
                 <div
