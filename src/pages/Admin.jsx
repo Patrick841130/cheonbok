@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { useDataStore } from '../stores/dataStore';
-import { Plus, Trash, Save, Edit, LogOut } from 'lucide-react';
+import { Plus, Trash, Save, Edit, LogOut, Home } from 'lucide-react';
 import { convertGoogleDriveLink } from '../lib/utils';
 import ImageUpload from '../components/ImageUpload';
 
@@ -128,6 +128,14 @@ export default function Admin() {
                             {tab.label}
                         </button>
                     ))}
+                    <div className="pt-4 mt-4 border-t border-gray-800">
+                        <button
+                            onClick={() => window.open('/', '_blank')}
+                            className="w-full text-left px-4 py-3 rounded-lg font-bold text-slate-400 hover:bg-slate-800 hover:text-white transition flex items-center gap-2"
+                        >
+                            <Home size={18} /> 홈페이지 바로가기
+                        </button>
+                    </div>
                 </nav>
                 <div className="p-4 border-t border-gray-800">
                     <button onClick={handleLogout} className="flex items-center gap-2 text-slate-400 hover:text-white font-bold transition w-full px-4 py-2">
