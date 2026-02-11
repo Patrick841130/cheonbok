@@ -114,14 +114,16 @@ export default function Home() {
                         <span className="text-xs font-bold text-white tracking-[0.2em] uppercase">제 3기 마스터 클래스 모집 중</span>
                     </div>
                     <h1 className="text-4xl sm:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
-                        웹3 새로운 <span className="text-primary">금융 시대</span>.<br />
+                        웹3 <span className="text-primary">AI 금융시대</span>.<br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
                             당신은 준비되셨습니까?
                         </span>
                     </h1>
                     <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-                        15시간의 무박 2일 고강도 실전 트레이딩.<br />
-                        의존적인 매매 습관을 삭제하고, 스스로 생존하는 <span className="text-white font-bold">야전 투자자</span>로 재탄생하십시오.
+                        당신은 선택하는 사람인가?<br />
+                        아니면 선택당하는 사람인가?<br /><br />
+                        결정하는 힘은<br />
+                        미래의 나에게 남겨주는 가치 있는 선물!
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-5">
                         <Link
@@ -151,8 +153,8 @@ export default function Home() {
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-600">Coaching</span>으로 완성된다.
                             </h3>
                             <p className="text-slate-600 mb-10 leading-relaxed text-lg">
-                                리딩방의 맹점은 '의존'입니다. 천복 사관학교는 고기를 잡아주지 않습니다.<br />
-                                폭풍우 치는 바다에서도 배를 몰 수 있는 '항해술'을 가르칩니다.
+                                의존을 끊고, 판단을 갖추다.<br />
+                                실전에서 살아남는 투자자의 기준.
                             </p>
 
                             <div className="space-y-4">
