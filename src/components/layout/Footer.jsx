@@ -32,6 +32,9 @@ export default function Footer() {
                         {/* Admin Link Secret */}
                         <a href="/admin" className="hover:text-gray-400 cursor-pointer">관리자</a>
                     </div>
+                    <p className="text-gray-500 font-medium">
+                        웹3 사관학교 ㅣ 상호명 : 주식회사 엘케이브라더스 ㅣ 대표자 : 이 상 연
+                    </p>
                     <p>&copy; 2026 CHEONBOK WEB3 ACADEMY. ALL RIGHTS RESERVED.</p>
                 </div>
             </div>
