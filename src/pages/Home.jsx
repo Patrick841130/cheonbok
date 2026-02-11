@@ -114,7 +114,7 @@ export default function Home() {
                         <span className="text-xs font-bold text-white tracking-[0.2em] uppercase">제 3기 마스터 클래스 모집 중</span>
                     </div>
                     <h1 className="text-4xl sm:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
-                        웹3 <span className="text-primary">AI 금융시대</span>.<br />
+                        웹3 AI <span className="text-primary">금융시대</span>.<br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
                             당신은 준비되셨습니까?
                         </span>
