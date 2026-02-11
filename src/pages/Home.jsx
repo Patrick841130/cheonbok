@@ -175,7 +175,7 @@ export default function Home() {
                                         🛡️
                                     </div>
                                     <div className="relative z-10">
-                                        <h4 className="font-bold text-white text-lg">천복 사관학교 (Tactical)</h4>
+                                        <h4 className="font-bold text-white text-lg">웹3 사관학교 (Tactical)</h4>
                                         <p className="text-sm text-slate-400 mt-1">데이터 기반의 가설 수립과 교관의 피드백을 통한 독립적 매매.</p>
                                     </div>
                                 </div>
