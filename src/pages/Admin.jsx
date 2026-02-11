@@ -247,7 +247,7 @@ export default function Admin() {
                                     {[
                                         { id: 'basic', label: '기초훈련반' },
                                         { id: 'intermediate', label: '생도육성반' },
-                                        { id: 'master', label: '장교육성반' }
+                                        { id: 'master', label: '장교임관반' }
                                     ].map(track => (
                                         <button
                                             key={track.id}

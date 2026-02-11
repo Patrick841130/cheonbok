@@ -56,17 +56,6 @@ export const initialSchedule = {
                 { week: '3주차', desc: '손절, 익절 관리 및 리스크 관리' },
                 { week: '4주차', desc: '실전매매 및 수료 평가' }
             ]
-        },
-        {
-            id: 'basic-mar',
-            month: '2개월차',
-            image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1000',
-            weeks: [
-                { week: '1주차', desc: '선물 거래의 기초: 레버리지와 리스크 관리' },
-                { week: '2주차', desc: '매매 일지 작성법 및 습관 형성' },
-                { week: '3주차', desc: '단기 매매(스캘핑) 기초 전략' },
-                { week: '4주차', desc: '기초 과정 종합 평가' }
-            ]
         }
     ],
     intermediate: [
@@ -80,17 +69,6 @@ export const initialSchedule = {
                 { week: '3주차', desc: '물타기, 분할, 레버리지 전략' },
                 { week: '4주차', desc: '트레이딩 멘탈 관리 및 개인전략 완성' }
             ]
-        },
-        {
-            id: 'inter-mar',
-            month: '2개월차',
-            image: 'https://images.unsplash.com/photo-1611974765270-ca125863436d?auto=format&fit=crop&q=80&w=1000',
-            weeks: [
-                { week: '1주차', desc: '거시 경제와 비트코인 상관관계 분석' },
-                { week: '2주차', desc: '펀딩비 전략과 김치 프리미엄 차익거래' },
-                { week: '3주차', desc: '멘탈 관리와 슬럼프 극복' },
-                { week: '4주차', desc: '실전 계좌 운용 및 피드백' }
-            ]
         }
     ],
     master: [
@@ -103,17 +81,6 @@ export const initialSchedule = {
                 { week: '2주차', desc: '헤지펀드 운용 전략 벤치마킹' },
                 { week: '3주차', desc: '고강도 실전 트레이딩 부트캠프' },
                 { week: '4주차', desc: '트레이딩 심리학 마스터' }
-            ]
-        },
-        {
-            id: 'master-mar',
-            month: '2개월차',
-            image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=1000',
-            weeks: [
-                { week: '1주차', desc: '자금 관리(Money Management)의 정수' },
-                { week: '2주차', desc: '팀 트레이딩 및 리더십 훈련' },
-                { week: '3주차', desc: '최종 수익률 경연 대회' },
-                { week: '4주차', desc: '마스터 자격 부여 및 수료식' }
             ]
         }
     ]

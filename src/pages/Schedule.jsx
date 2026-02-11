@@ -6,7 +6,6 @@ export default function Schedule() {
     // Initial state: load full object, but default view is 'basic' track
     const { schedule: fullSchedule, fetchSchedule } = useDataStore();
     const [activeTrack, setActiveTrack] = useState('basic');
-    const [activeTab, setActiveTab] = useState(0);
 
     useEffect(() => {
         fetchSchedule();
@@ -15,12 +14,12 @@ export default function Schedule() {
     if (!fullSchedule) return <div>Loading...</div>;
 
     const currentTrackSchedule = fullSchedule[activeTrack] || [];
-    const currentSchedule = currentTrackSchedule[activeTab];
+    const currentSchedule = currentTrackSchedule[0];
 
     const tracks = [
         { id: 'basic', label: '기초훈련반 (Basic)' },
         { id: 'intermediate', label: '생도육성반 (Intermediate)' },
-        { id: 'master', label: '장교육성반 (Master)' }
+        { id: 'master', label: '장교임관반 (Master)' }
     ];
 
     return (
@@ -40,7 +39,7 @@ export default function Schedule() {
                         {tracks.map(track => (
                             <button
                                 key={track.id}
-                                onClick={() => { setActiveTrack(track.id); setActiveTab(0); }}
+                                onClick={() => setActiveTrack(track.id)}
                                 className={cn(
                                     "px-6 py-2.5 rounded-full text-sm font-bold transition-all",
                                     activeTrack === track.id
@@ -54,23 +53,7 @@ export default function Schedule() {
                     </div>
                 </div>
 
-                {/* Month Tabs */}
-                <div className="flex flex-wrap justify-center gap-4 mb-12">
-                    {currentTrackSchedule.map((schedule, idx) => (
-                        <button
-                            key={schedule.id}
-                            onClick={() => setActiveTab(idx)}
-                            className={cn(
-                                "px-8 py-3 rounded-full text-lg font-bold transition-all shadow-sm",
-                                activeTab === idx
-                                    ? "bg-primary text-white shadow-lg shadow-red-500/20 scale-105"
-                                    : "bg-white text-slate-500 hover:bg-white/80 hover:text-slate-900"
-                            )}
-                        >
-                            {schedule.month}
-                        </button>
-                    ))}
-                </div>
+                {/* Month Tabs Removed */}
 
                 {/* Content Area */}
                 {currentSchedule && (
