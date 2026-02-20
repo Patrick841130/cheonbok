@@ -8,7 +8,7 @@ export default function Footer() {
 
             <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
                 <h2 className="text-2xl sm:text-4xl font-black mb-10 leading-tight">
-                    "당신은 리더입니까,<br /> 아니면 추종자입니까?"
+                    "당신은 선택하는 사람인가?<br /> 아니면 선택당하는 사람인가?"
                 </h2>
                 <div
                     className="bg-gradient-to-br from-gray-800 to-black p-8 rounded-3xl mb-12 border border-gray-800 shadow-2xl">
