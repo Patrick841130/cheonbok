@@ -24,11 +24,8 @@ export default function Header() {
         <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-lg border-b border-gray-200 z-50 h-20">
             <div className="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
                 {/* Logo */}
-                <Link to="/" className="flex items-center gap-3 group">
-                    <img src="/logo.png" alt="Cheonbok Logo" className="h-10 w-auto object-contain" />
-                    <span className="hidden sm:block text-xs font-bold text-slate-500 border-l border-slate-300 pl-3 uppercase tracking-wider group-hover:text-primary transition-colors">
-                        Web3 Academy
-                    </span>
+                <Link to="/" className="text-lg font-bold text-slate-900 hover:text-primary transition-colors">
+                    웹3 사관학교
                 </Link>
 
                 {/* Desktop Nav */}
