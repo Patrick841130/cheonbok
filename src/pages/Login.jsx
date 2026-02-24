@@ -23,43 +23,43 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
-            <div className="bg-white rounded-2xl p-10 w-full max-w-md shadow-2xl">
+        <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6">
+            <div className="bg-[#1E293B] rounded-2xl p-10 w-full max-w-md shadow-2xl border border-[#334155]">
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-black text-slate-900">Admin Access</h1>
-                    <p className="text-slate-500 text-sm">Web3 Academy Security Gateway</p>
+                    <h1 className="text-2xl font-black text-white">Admin Access</h1>
+                    <p className="text-[#94A3B8] text-sm">Web3 Academy Security Gateway</p>
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-bold text-slate-700 mb-2">ID</label>
+                        <label className="block text-sm font-bold text-[#94A3B8] mb-2">ID</label>
                         <input
                             type="text"
                             value={id}
                             onChange={(e) => setId(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition"
+                            className="w-full px-4 py-3 rounded-lg border border-[#334155] bg-[#0F172A] text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-[#475569]"
                             placeholder="Admin ID"
                             disabled={isLoading}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-bold text-slate-700 mb-2">Password</label>
+                        <label className="block text-sm font-bold text-[#94A3B8] mb-2">Password</label>
                         <input
                             type="password"
                             value={pw}
                             onChange={(e) => setPw(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition"
+                            className="w-full px-4 py-3 rounded-lg border border-[#334155] bg-[#0F172A] text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-[#475569]"
                             placeholder="Access Key"
                             disabled={isLoading}
                         />
                     </div>
 
-                    {error && <p className="text-red-600 text-sm font-bold text-center">{error}</p>}
+                    {error && <p className="text-red-400 text-sm font-bold text-center">{error}</p>}
 
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full bg-[#E60013] hover:bg-[#c40010] disabled:bg-gray-400 text-white py-4 rounded-xl font-bold transition shadow-lg"
+                        className="w-full bg-primary hover:bg-blue-600 disabled:bg-[#475569] text-white py-4 rounded-xl font-bold transition shadow-lg glow-blue"
                     >
                         {isLoading ? 'Authenticating...' : 'Access Dashboard'}
                     </button>

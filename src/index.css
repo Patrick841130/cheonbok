@@ -3,14 +3,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #E60013;
+  --color-primary: #3B82F6;
+  --color-accent: #22D3EE;
   --font-sans: "Noto Sans KR", "Nunito Sans", sans-serif;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden;
+    @apply bg-[#F8F8F8] text-slate-800 font-sans antialiased overflow-x-hidden transition-colors duration-300;
   }
+}
+
+.dark body {
+  @apply bg-[#0F172A] text-[#F8FAFC];
 }
 
 
@@ -36,16 +43,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #0F172A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #334155;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #475569;
 }
 
 .card-hover {
@@ -54,5 +61,22 @@
 
 .card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Glow effect for buttons */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.1);
+}
+
+.glow-blue:hover {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.15);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(230, 0, 19, 0.4), 0 0 60px rgba(230, 0, 19, 0.1);
+}
+
+.glow-red:hover {
+  box-shadow: 0 0 30px rgba(230, 0, 19, 0.5), 0 0 80px rgba(230, 0, 19, 0.15);
 }
